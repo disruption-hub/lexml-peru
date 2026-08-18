@@ -1,0 +1,39 @@
+{
+  "$comment": "El caso paradigmático del documento de diseño: el DL 1296 (2016) reguló íntegramente la redención de penas y produjo la derogación TÁCITA de la Ley 27770 — pero el INPE siguió aplicando la ley antigua por años hasta que el TC zanjó. Con LexPerú, la inferencia habría proyectado la señal el 31-12-2016. Este ejemplo muestra (a) la norma nueva en serialización compacta y (b) la arista inferida que el pipeline habría producido — la arista NO viaja en la ingesta: la genera el clasificador.",
+  "ingesta": {
+    "tipo": "decreto_legislativo",
+    "numero": "1296",
+    "emisor": "poder.ejecutivo",
+    "fechaPublicacion": "2016-12-30",
+    "titulo": "Decreto Legislativo que modifica el Código de Ejecución Penal en materia de beneficios penitenciarios de redención de la pena por el trabajo o la educación",
+    "materias": ["beneficios_penitenciarios", "ejecucion_penal"],
+    "fuente": "el_peruano",
+    "clausulaGenerica": true,
+    "dispositivos": [
+      {
+        "eId": "art_1",
+        "rotulo": "Artículo 1",
+        "texto": "Objeto: modificar los artículos 44, 46, 47, 48, 50, 53 y 55 del Código de Ejecución Penal respecto de la redención de pena por trabajo o educación."
+      },
+      {
+        "eId": "art_46",
+        "rotulo": "Artículo 46 (texto modificatorio)",
+        "texto": "Casos especiales de redención: el interno redime la pena mediante el trabajo o la educación a razón de un día de pena por cinco días de labor efectiva, según el delito..."
+      },
+      {
+        "eId": "disp_comp_derog_unica",
+        "rotulo": "Disposición Complementaria Derogatoria Única",
+        "texto": "Deróganse las disposiciones que se opongan a lo establecido en el presente Decreto Legislativo."
+      }
+    ]
+  },
+  "inferencia_esperada": {
+    "tipo": "POSIBLE_DEROGACION_TACITA",
+    "origenUrn": "urn:lex:pe:poder.ejecutivo:decreto.legislativo:2016-12-30;1296",
+    "destinoUrn": "urn:lex:pe:congreso:ley:2002-06-27;27770",
+    "confianzaInferida": 0.92,
+    "estadoRatificacion": "PENDIENTE",
+    "justificacion": "El DL 1296 regula íntegramente la redención de penas (materia de la Ley 27770) con fórmulas incompatibles (5x1/6x1 vs las restricciones de la 27770); lex posterior derogat priori. Contradicción directa en art_46 vs el régimen de la 27770.",
+    "desenlace_historico": "Años después, el TC (p.ej. Exp. 02187-2023-HC/TC) confirmó la derogación tácita — la arista habría pasado a RATIFICADA_JURISPRUDENCIA."
+  }
+}
