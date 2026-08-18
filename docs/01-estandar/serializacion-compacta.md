@@ -29,10 +29,32 @@ fricción mínima para adopción temprana.
 
 Validable con `schema/lexperu-compact.schema.json`.
 
+## Completitud del registro
+
+Un corpus real nunca está completo: las normas nuevas derogan normas
+antiguas cuyo texto puede no estar cargado todavía, y una relación
+`DEROGA` necesita un destino identificable HOY. El campo `completitud`
+distingue los dos niveles de registro:
+
+- **`integra`** (default): la norma viaja con su texto articulado
+  (`dispositivos` obligatorio). Es el registro pleno.
+- **`referencia`**: solo metadata — identidad URN, título, fecha, materias
+  y opcionalmente `estadoVigencia` conocido (p.ej. una ley de 1966 ya
+  derogada, registrada como destino de una derogación). `dispositivos`
+  puede omitirse.
+
+Dos consecuencias para el consumidor: (1) de un registro `referencia`
+**no se puede afirmar contenido** — solo identidad y estado declarado;
+(2) el registro `referencia` es un estado transitorio por diseño — cuando
+el texto llegue, la misma URN lo recibe y el registro pasa a `integra`
+sin cambiar de identidad. `fuente: registro_historico` marca los
+registros nacidos por esta vía.
+
 ## Reglas
 
-1. **`dispositivos` es obligatorio y ordenado** — el orden del array ES el
-   ordinal. Un dispositivo sin `eId` estable no es indexable.
+1. **`dispositivos` es obligatorio en registros `integra` y ordenado** —
+   el orden del array ES el ordinal. Un dispositivo sin `eId` estable no
+   es indexable. Solo un registro `completitud: referencia` puede omitirlo.
 2. **`materias` alimenta la recuperación limitada**: la inferencia de
    antinomias solo compara normas que comparten materia (Graph-RAG acotado
    — nunca el corpus completo contra sí mismo).

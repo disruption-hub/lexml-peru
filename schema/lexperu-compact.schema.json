@@ -3,7 +3,7 @@
   "$id": "https://lexperu.dev/schema/lexperu-compact.schema.json",
   "title": "LexPerú — serialización compacta de una norma",
   "type": "object",
-  "required": ["tipo", "numero", "emisor", "fechaPublicacion", "titulo", "dispositivos"],
+  "required": ["tipo", "numero", "emisor", "fechaPublicacion", "titulo"],
   "additionalProperties": false,
   "properties": {
     "tipo": {
@@ -20,9 +20,18 @@
       "items": { "type": "string", "pattern": "^[a-z0-9_]+$" },
       "uniqueItems": true
     },
-    "fuente": { "enum": ["el_peruano", "spij", "manual"] },
+    "fuente": { "enum": ["el_peruano", "spij", "manual", "registro_historico"] },
     "clausulaGenerica": { "type": "boolean" },
     "kbDocumentId": { "type": "string" },
+    "completitud": {
+      "description": "Nivel de completitud del registro. 'integra' (default): la norma viaja con su texto articulado. 'referencia': solo metadata — típicamente una norma histórica registrada como destino de una derogación, cuyo texto aún no se ha cargado. Un consumidor NO debe afirmar contenido de un registro 'referencia'.",
+      "enum": ["integra", "referencia"],
+      "default": "integra"
+    },
+    "estadoVigencia": {
+      "description": "Estado de vigencia conocido al momento del registro. Opcional; pensado para registros 'referencia' (p.ej. una ley antigua ya derogada). La vigencia autoritativa la determinan las relaciones y su ciclo de ratificación, no este campo.",
+      "enum": ["vigente", "derogada"]
+    },
     "dispositivos": {
       "type": "array",
       "minItems": 1,
@@ -51,5 +60,14 @@
         }
       }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "completitud": { "const": "referencia" } },
+        "required": ["completitud"]
+      },
+      "else": { "required": ["dispositivos"] }
+    }
+  ]
 }
