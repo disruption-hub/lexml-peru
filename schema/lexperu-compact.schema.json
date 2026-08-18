@@ -23,6 +23,14 @@
     "fuente": { "enum": ["el_peruano", "spij", "manual", "registro_historico"] },
     "clausulaGenerica": { "type": "boolean" },
     "kbDocumentId": { "type": "string" },
+    "preambulo": {
+      "type": "string",
+      "description": "Parte no normativa ANTERIOR al articulado (AKN preamble/preface): título formal, considerandos, fórmula de sanción. Valor interpretativo; nunca se cita como fuente normativa."
+    },
+    "cierre": {
+      "type": "string",
+      "description": "Parte no normativa POSTERIOR al cuerpo (AKN conclusions): fórmula de promulgación, firmas, y notas editoriales de la edición consolidada (CONCORDANCIAS, NOTA SPIJ, FE DE ERRATAS). Una fe de erratas aquí obliga a verificar que los dispositivos ya la incorporan — nunca se aplica automáticamente."
+    },
     "completitud": {
       "description": "Nivel de completitud del registro. 'integra' (default): la norma viaja con su texto articulado. 'referencia': solo metadata — típicamente una norma histórica registrada como destino de una derogación, cuyo texto aún no se ha cargado. Un consumidor NO debe afirmar contenido de un registro 'referencia'.",
       "enum": ["integra", "referencia"],
@@ -40,7 +48,7 @@
         "required": ["eId", "rotulo", "texto"],
         "additionalProperties": false,
         "properties": {
-          "eId": { "type": "string", "pattern": "^[a-z0-9_]+$", "examples": ["art_1", "disp_comp_final_3"] },
+          "eId": { "type": "string", "pattern": "^[a-z0-9_]+$", "examples": ["art_1", "dcf_3", "dct_11", "lib_2__sec_2__tit_3"] },
           "rotulo": { "type": "string", "maxLength": 120 },
           "texto": { "type": "string", "minLength": 1 }
         }

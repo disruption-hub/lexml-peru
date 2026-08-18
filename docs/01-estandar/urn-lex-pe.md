@@ -16,7 +16,7 @@ urn:lex:pe:<emisor>:<tipo>:<fecha-publicacion>;<numero>[~<eId>]
 | `tipo` | catálogo controlado (abajo) | `ley`, `decreto.legislativo`, `decreto.supremo` |
 | `fecha-publicacion` | ISO `YYYY-MM-DD` — la fecha de publicación en El Peruano | `2016-12-30` |
 | `numero` | el número oficial, sin ceros a la izquierda | `27770`, `1296`, `004-2026-jus` |
-| `eId` (fragmento) | opcional, referencia a un dispositivo | `~art_5`, `~disp_comp_final_3` |
+| `eId` (fragmento) | opcional, referencia a un dispositivo | `~art_5`, `~dcf_3` |
 
 ## Ejemplos canónicos
 

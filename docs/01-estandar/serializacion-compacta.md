@@ -17,10 +17,13 @@ fricción mínima para adopción temprana.
   "materias": ["beneficios_penitenciarios", "ejecucion_penal"],
   "fuente": "el_peruano",
   "clausulaGenerica": true,
+  "preambulo": "EL PRESIDENTE DE LA REPÚBLICA / POR CUANTO: … considerandos …",
   "dispositivos": [
+    { "eId": "tit_1", "rotulo": "TÍTULO I", "texto": "DISPOSICIONES GENERALES" },
     { "eId": "art_1", "rotulo": "Artículo 1", "texto": "Objeto de la norma…" },
     { "eId": "art_47", "rotulo": "Artículo 47", "texto": "Redención de pena por trabajo o educación…" }
   ],
+  "cierre": "Comuníquese al señor Presidente de la República… / firmas / notas editoriales",
   "relaciones": [
     { "tipo": "MODIFICA", "destinoUrn": "urn:lex:pe:congreso:ley:1991-08-02;codigo.ejecucion.penal", "destinoEId": "art_47" }
   ]
@@ -50,6 +53,33 @@ el texto llegue, la misma URN lo recibe y el registro pasa a `integra`
 sin cambiar de identidad. `fuente: registro_historico` marca los
 registros nacidos por esta vía.
 
+## Partes no normativas: `preambulo` y `cierre`
+
+Una norma real trae texto ANTES y DESPUÉS del articulado, y ninguno de los
+dos es un dispositivo. Akoma Ntoso los modela como `preamble`/`preface` y
+`conclusions`; aquí son dos campos opcionales de texto plano:
+
+- **`preambulo`**: lo anterior al primer dispositivo — título formal,
+  considerandos, fórmula de sanción. Tiene valor INTERPRETATIVO (dice por
+  qué se dictó la norma) pero no fuerza normativa propia.
+- **`cierre`**: lo posterior al cuerpo — la fórmula de promulgación
+  («Comuníquese al señor Presidente…»), fecha de promulgación, firmas, y
+  las notas EDITORIALES que las ediciones consolidadas (SPIJ) apilan al
+  final: CONCORDANCIAS, NOTA SPIJ, FE DE ERRATAS.
+
+Tres reglas sobre ellos:
+
+- Un consumidor **no cita** preámbulo ni cierre como fuente normativa —
+  son contexto del documento.
+- Una **FE DE ERRATAS** dentro del cierre es una corrección con valor
+  legal: el productor del registro debe verificar que el texto de los
+  dispositivos YA la incorpora (las ediciones consolidadas normalmente lo
+  hacen). Nunca se aplica automáticamente.
+- Las **CONCORDANCIAS** editoriales son candidatas a relaciones de
+  lectura (`REMITE` con procedencia editorial, no del legislador) — su
+  extracción estructurada está en el roadmap; mientras tanto viajan como
+  texto dentro de `cierre`.
+
 ## Reglas
 
 1. **`dispositivos` es obligatorio en registros `integra` y ordenado** —
@@ -65,3 +95,7 @@ registros nacidos por esta vía.
    idempotentemente cuando esa norma entre.
 5. El URN de la norma NO viaja en el JSON: se **deriva** de
    (emisor, tipo, fecha, numero) — una sola fuente de identidad.
+6. **Los agrupadores estructurales son dispositivos** (`lib_`/`sec_`/
+   `tit_`/`cap_`, eId compuesto con `__` — ver `ids-dispositivos.md`):
+   expresan la jerarquía en la forma plana. Los artículos siguen planos
+   (`art_N`); contar artículos = contar eIds con prefijo `art_`.
